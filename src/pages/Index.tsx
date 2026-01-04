@@ -214,11 +214,7 @@ const Index = () => {
             </Button>
           </div>
 
-          <div key={i} className="glass-card rounded-xl p-5 text-center hover:border-primary/50 transition-all duration-300 group">
-                <feature.icon className="w-8 h-8 mx-auto mb-3 text-primary group-hover:scale-110 transition-transform" />
-                <h3 className="font-semibold mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.desc}</p>
-              </div>
+        
             ))}
           </div>
         </div>
