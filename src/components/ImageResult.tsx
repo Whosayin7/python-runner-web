@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -7,7 +8,8 @@ interface ImageResultProps {
   onDownload?: () => void;
 }
 
-export function ImageResult({ imageUrl, label, onDownload }: ImageResultProps) {
+export const ImageResult = forwardRef<HTMLDivElement, ImageResultProps>(
+  function ImageResult({ imageUrl, label, onDownload }, ref) {
   if (!imageUrl) {
     return (
       <div className="w-full aspect-video rounded-xl border border-border/50 bg-muted/20 flex items-center justify-center">
@@ -46,4 +48,4 @@ export function ImageResult({ imageUrl, label, onDownload }: ImageResultProps) {
       <div className="absolute inset-0 scanline opacity-50 pointer-events-none" />
     </div>
   );
-}
+});
