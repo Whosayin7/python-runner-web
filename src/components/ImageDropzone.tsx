@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, forwardRef } from "react";
 import { Upload, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -7,7 +7,8 @@ interface ImageDropzoneProps {
   disabled?: boolean;
 }
 
-export function ImageDropzone({ onImageLoad, disabled }: ImageDropzoneProps) {
+export const ImageDropzone = forwardRef<HTMLDivElement, ImageDropzoneProps>(
+  function ImageDropzone({ onImageLoad, disabled }, ref) {
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -119,4 +120,4 @@ export function ImageDropzone({ onImageLoad, disabled }: ImageDropzoneProps) {
       )}
     </div>
   );
-}
+});
