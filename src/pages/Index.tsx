@@ -5,12 +5,12 @@ import { Input } from "@/components/ui/input";
 import { ImageDropzone } from "@/components/ImageDropzone";
 import { ImageResult } from "@/components/ImageResult";
 import { ProgressBar } from "@/components/ProgressBar";
-import {
-  encryptImage,
-  decryptImage,
-  getImageData,
+import { 
+  encryptImage, 
+  decryptImage, 
+  getImageData, 
   createImageFromData,
-  type ImageData,
+  type ImageData 
 } from "@/lib/imageEncryption";
 import { toast } from "sonner";
 
@@ -18,15 +18,11 @@ const Index = () => {
   const [sourceImage, setSourceImage] = useState<HTMLImageElement | null>(null);
   const [sourceImageData, setSourceImageData] = useState<ImageData | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
-
   const [secretKey, setSecretKey] = useState("");
   const [showKey, setShowKey] = useState(false);
-
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
-
   const [operation, setOperation] = useState<"encrypt" | "decrypt" | null>(null);
-  const [lastOperation, setLastOperation] = useState<"encrypt" | "decrypt" | null>(null);
 
   const handleImageLoad = useCallback((image: HTMLImageElement) => {
     setSourceImage(image);
@@ -48,7 +44,6 @@ const Index = () => {
       const encrypted = await encryptImage(sourceImageData, secretKey, setProgress);
       const dataUrl = createImageFromData(encrypted.data, encrypted.width, encrypted.height);
       setResultImage(dataUrl);
-      setLastOperation("encrypt");
       toast.success("Görüntü başarıyla şifrelendi!");
     } catch (error) {
       console.error(error);
@@ -73,7 +68,6 @@ const Index = () => {
       const decrypted = await decryptImage(sourceImageData, secretKey, setProgress);
       const dataUrl = createImageFromData(decrypted.data, decrypted.width, decrypted.height);
       setResultImage(dataUrl);
-      setLastOperation("decrypt");
       toast.success("Görüntü başarıyla çözüldü!");
     } catch (error) {
       console.error(error);
@@ -86,10 +80,10 @@ const Index = () => {
 
   const handleDownload = () => {
     if (!resultImage) return;
-
-    const link = document.createElement("a");
+    
+    const link = document.createElement('a');
     link.href = resultImage;
-    link.download = lastOperation === "encrypt" ? "sifreli.png" : "cozulmus.png";
+    link.download = operation === "encrypt" ? "sifreli.png" : "cozulmus.png";
     link.click();
   };
 
@@ -98,10 +92,7 @@ const Index = () => {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl" />
       </div>
 
@@ -117,10 +108,12 @@ const Index = () => {
             <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center cyber-glow">
               <Shield className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gradient">Kaotik Şifreleme</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient">
+              Kaotik Şifreleme
+            </h1>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Logistik harita tabanlı kaotik keystream, permütasyon ve CBC benzeri difüzyon kullanarak
+            Logistik harita tabanlı kaotik keystream, permütasyon ve CBC benzeri difüzyon kullanarak 
             görüntülerinizi güvenle şifreleyin
           </p>
         </header>
@@ -128,15 +121,11 @@ const Index = () => {
         {/* Main content */}
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Key input */}
-          <div
-            className="glass-card rounded-2xl p-6 animate-fade-in"
-            style={{ animationDelay: "0.1s" }}
-          >
+          <div className="glass-card rounded-2xl p-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <div className="flex items-center gap-3 mb-4">
               <Key className="w-5 h-5 text-primary" />
               <h2 className="text-lg font-semibold">Şifreleme Anahtarı</h2>
             </div>
-
             <div className="relative">
               <Input
                 type={showKey ? "text" : "password"}
@@ -148,29 +137,29 @@ const Index = () => {
               />
               <button
                 type="button"
-                onClick={() => setShowKey((v) => !v)}
+                onClick={() => setShowKey(!showKey)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={showKey ? "Anahtarı gizle" : "Anahtarı göster"}
               >
                 {showKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              SHA-256 ile türetilen anahtar, kaotik keystream başlangıç değerlerini ve permütasyon seed'ini belirler
+            </p>
           </div>
 
           {/* Images grid */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Source image */}
-            <div
-              className="glass-card rounded-2xl p-6 animate-fade-in"
-              style={{ animationDelay: "0.2s" }}
-            >
+            <div className="glass-card rounded-2xl p-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center gap-3 mb-4">
                 <Zap className="w-5 h-5 text-secondary" />
                 <h2 className="text-lg font-semibold">Kaynak Görüntü</h2>
               </div>
-
-              <ImageDropzone onImageLoad={handleImageLoad} disabled={isProcessing} />
-
+              <ImageDropzone 
+                onImageLoad={handleImageLoad} 
+                disabled={isProcessing}
+              />
               {sourceImage && (
                 <p className="text-sm text-muted-foreground mt-3 font-mono">
                   {sourceImage.width} × {sourceImage.height} piksel
@@ -179,17 +168,13 @@ const Index = () => {
             </div>
 
             {/* Result image */}
-            <div
-              className="glass-card rounded-2xl p-6 animate-fade-in"
-              style={{ animationDelay: "0.3s" }}
-            >
+            <div className="glass-card rounded-2xl p-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-5 h-5 text-accent" />
                 <h2 className="text-lg font-semibold">Sonuç</h2>
               </div>
-
-              <ImageResult
-                imageUrl={resultImage}
+              <ImageResult 
+                imageUrl={resultImage} 
                 label={resultImage ? "İşlenmiş görüntü" : "Sonuç burada görünecek"}
                 onDownload={resultImage ? handleDownload : undefined}
               />
@@ -199,8 +184,8 @@ const Index = () => {
           {/* Progress bar */}
           {isProcessing && (
             <div className="glass-card rounded-2xl p-6 animate-scale-in">
-              <ProgressBar
-                progress={progress}
+              <ProgressBar 
+                progress={progress} 
                 label={operation === "encrypt" ? "Şifreleniyor..." : "Çözülüyor..."}
                 variant={operation || "encrypt"}
               />
@@ -208,10 +193,7 @@ const Index = () => {
           )}
 
           {/* Action buttons */}
-          <div
-            className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in"
-            style={{ animationDelay: "0.4s" }}
-          >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Button
               variant="encrypt"
               size="xl"
@@ -222,7 +204,6 @@ const Index = () => {
               <Lock className="w-5 h-5" />
               Şifrele
             </Button>
-
             <Button
               variant="decrypt"
               size="xl"
@@ -233,6 +214,21 @@ const Index = () => {
               <Unlock className="w-5 h-5" />
               Çöz
             </Button>
+          </div>
+
+          {/* Features */}
+          <div className="grid sm:grid-cols-3 gap-4 mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            {[
+              { icon: Zap, title: "Kaotik Keystream", desc: "Logistik harita tabanlı rastgele sayı üretimi" },
+              { icon: Lock, title: "Permütasyon", desc: "Bayt konumlarının anahtar-bağımlı karıştırılması" },
+              { icon: Shield, title: "CBC Difüzyon", desc: "Geri besleme ile siluet gizleme" },
+            ].map((feature, i) => (
+              <div key={i} className="glass-card rounded-xl p-5 text-center hover:border-primary/50 transition-all duration-300 group">
+                <feature.icon className="w-8 h-8 mx-auto mb-3 text-primary group-hover:scale-110 transition-transform" />
+                <h3 className="font-semibold mb-1">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
