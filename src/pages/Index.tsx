@@ -214,14 +214,7 @@ const Index = () => {
             </Button>
           </div>
 
-          {/* Features */}
-          <div className="grid sm:grid-cols-3 gap-4 mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            {[
-              { icon: Zap, title: "Kaotik Keystream", desc: "Logistik harita tabanlı rastgele sayı üretimi" },
-              { icon: Lock, title: "Permütasyon", desc: "Bayt konumlarının anahtar-bağımlı karıştırılması" },
-              { icon: Shield, title: "CBC Difüzyon", desc: "Geri besleme ile siluet gizleme" },
-            ].map((feature, i) => (
-              <div key={i} className="glass-card rounded-xl p-5 text-center hover:border-primary/50 transition-all duration-300 group">
+          <div key={i} className="glass-card rounded-xl p-5 text-center hover:border-primary/50 transition-all duration-300 group">
                 <feature.icon className="w-8 h-8 mx-auto mb-3 text-primary group-hover:scale-110 transition-transform" />
                 <h3 className="font-semibold mb-1">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.desc}</p>
