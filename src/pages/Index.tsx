@@ -113,7 +113,7 @@ const Index = () => {
             </h1>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Logistik harita tabanlı kaotik, çok karışık davranan bir matematik sistemiyle gizli anahtarlar üretilerek, resimdeki piksellerin yerleri değiştirilmiş ve resim tamamen okunamaz hâle getirilerek güvenli bir şekilde şifrelenmiştir.
+            Logistik harita tabanlı kaotik şifreleme ile görsellerinizi güvenli bir şekilde şifreleyin.
           </p>
         </header>
 
