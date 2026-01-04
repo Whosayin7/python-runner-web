@@ -143,9 +143,7 @@ const Index = () => {
                 {showKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
-            <p className="text-sm text-muted-foreground mt-2">
-              SHA-256 ile türetilen anahtar, kaotik keystream başlangıç değerlerini ve permütasyon seed'ini belirler
-            </p>
+          
           </div>
 
           {/* Images grid */}
